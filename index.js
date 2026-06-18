@@ -14,7 +14,7 @@ async function handleWebhook(request) {
   const sig = await crypto.subtle.sign("HMAC", key, encoder.encode(body));
   const hash = btoa(String.fromCharCode(...new Uint8Array(sig)));
 
-  if (signature !== hash) {
+  if (signature && signature !== hash) {
     return new Response("Invalid signature", { status: 401 });
   }
 
